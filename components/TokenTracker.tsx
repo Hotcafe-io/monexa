@@ -745,7 +745,7 @@ const Header = ({ currentDate }: { currentDate: string }) => {
   )
 }
 
-const MarketInfoCard = ({ icon, title, value, change }) => (
+const MarketInfoCard = ({ icon, title, value, change } : {icon: any, title: any, value: any, change: any}) => (
   <motion.div 
     className="bg-white bg-opacity-10 rounded-lg p-2 backdrop-filter backdrop-blur-sm"
     whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(64, 224, 208, 0.3)" }}
@@ -766,7 +766,7 @@ const MarketInfoCard = ({ icon, title, value, change }) => (
   </motion.div>
 )
 
-const MigratedTokensMarquee = ({ tokens }) => (
+const MigratedTokensMarquee = ({ tokens } : {tokens: any}) => (
   <div className="mb-4 bg-white bg-opacity-10 p-1 rounded-lg overflow-hidden">
     <motion.div 
       className="flex whitespace-nowrap"
@@ -782,7 +782,7 @@ const MigratedTokensMarquee = ({ tokens }) => (
   </div>
 )
 
-const TokenCard = ({ token, onUpvote, onClick }) => (
+const TokenCard = ({ token, onUpvote, onClick } : {token: any, onUpvote: any, onClick: any}) => (
   <motion.li
     layout
     initial={{ opacity: 0, scale: 0.8 }}
@@ -907,7 +907,7 @@ const TokenCard = ({ token, onUpvote, onClick }) => (
   </motion.li>
 )
 
-const TokenModal = ({ token, onClose }) => (
+const TokenModal = ({ token, onClose } : {token: any, onClose: any}) => (
   <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
