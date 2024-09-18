@@ -745,7 +745,7 @@ const Header = ({ currentDate }: { currentDate: string }) => {
   )
 }
 
-const MarketInfoCard = ({ icon }: {icon: string }, title, value, change ) => (
+const MarketInfoCard = ({ icon, title, value, change }) => (
   <motion.div 
     className="bg-white bg-opacity-10 rounded-lg p-2 backdrop-filter backdrop-blur-sm"
     whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(64, 224, 208, 0.3)" }}
