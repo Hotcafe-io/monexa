@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpIcon, ArrowDownIcon, BarChart3Icon, TrendingUpIcon, AlertTriangleIcon, Users2Icon, CoinsIcon, LinkIcon, MenuIcon, XIcon, ZapIcon, GlobeIcon, DollarSignIcon, ThumbsUpIcon, FilterIcon, SortAscIcon, SortDescIcon, TwitterIcon, GithubIcon, ShoppingCartIcon } from 'lucide-react'
+import { ArrowUpIcon, ArrowDownIcon, BarChart3Icon, TrendingUpIcon, AlertTriangleIcon, Users2Icon, CoinsIcon, LinkIcon, MenuIcon, XIcon, GlobeIcon, ThumbsUpIcon, SortAscIcon, SortDescIcon, TwitterIcon, GithubIcon, ShoppingCartIcon } from 'lucide-react'
 
 // Extended mock data for demonstration
 const initialTokens = [
