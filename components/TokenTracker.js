@@ -645,7 +645,7 @@ const MonexaLogo = () => (
   </svg>
 )
 
-const Header = ({ currentDate }: { currentDate: string }) => {
+const Header = ({ currentDate }) => {
   const [isGlitching, setIsGlitching] = useState(false)
 
   useEffect(() => {
