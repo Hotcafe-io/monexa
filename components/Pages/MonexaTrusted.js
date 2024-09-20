@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   SortAscIcon,
   SortDescIcon,
-  XIcon,
-  MenuIcon,
   BarChart3Icon,
   TrendingUpIcon,
   AlertTriangleIcon,
@@ -19,19 +17,19 @@ import TokenModal from '../TokenModal'
 
 
 const trustedTokens = [
-  { 
-    id: 1, 
-    name: 'MonexaCoin', 
+  {
+    id: 1,
+    name: 'MonexaCoin',
     symbol: 'MXC',
     icon: '💎',
-    variation: 15.2, 
-    status: 'green', 
-    volume: '1.2B', 
-    holders: '125K', 
-    marketCap: '5.6B', 
-    currentPrice: '0.00123', 
-    chain: 'Ethereum', 
-    upvotes: 1250, 
+    variation: 15.2,
+    status: 'green',
+    volume: '1.2B',
+    holders: '125K',
+    marketCap: '5.6B',
+    currentPrice: '0.00123',
+    chain: 'Ethereum',
+    upvotes: 1250,
     blocked: false,
     transactions: [
       { type: 'Buy', amount: '100,000', price: '0.00120' },
@@ -52,19 +50,19 @@ const trustedTokens = [
       website: 'https://monexacoin.io'
     }
   },
-  { 
-    id: 2, 
-    name: 'NexaToken', 
+  {
+    id: 2,
+    name: 'NexaToken',
     symbol: 'NXT',
     icon: '🔷',
-    variation: 12.3, 
-    status: 'green', 
-    volume: '890M', 
-    holders: '78K', 
-    marketCap: '3.2B', 
-    currentPrice: '0.00085', 
-    chain: 'Binance', 
-    upvotes: 980, 
+    variation: 12.3,
+    status: 'green',
+    volume: '890M',
+    holders: '78K',
+    marketCap: '3.2B',
+    currentPrice: '0.00085',
+    chain: 'Binance',
+    upvotes: 980,
     blocked: false,
     transactions: [
       { type: 'Buy', amount: '200,000', price: '0.00083' },
@@ -85,19 +83,19 @@ const trustedTokens = [
       website: 'https://nexatoken.io'
     }
   },
-  { 
-    id: 3, 
-    name: 'CryptoFlow', 
+  {
+    id: 3,
+    name: 'CryptoFlow',
     symbol: 'CFT',
     icon: '🌊',
-    variation: 8.7, 
-    status: 'green', 
-    volume: '750M', 
-    holders: '62K', 
-    marketCap: '2.8B', 
-    currentPrice: '0.00072', 
-    chain: 'Polygon', 
-    upvotes: 850, 
+    variation: 8.7,
+    status: 'green',
+    volume: '750M',
+    holders: '62K',
+    marketCap: '2.8B',
+    currentPrice: '0.00072',
+    chain: 'Polygon',
+    upvotes: 850,
     blocked: false,
     transactions: [
       { type: 'Buy', amount: '180,000', price: '0.00070' },
@@ -123,7 +121,6 @@ const trustedTokens = [
 
 export default function MonexaTrusted() {
   const [currentDate, setCurrentDate] = useState('')
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [tokens, setTokens] = useState(trustedTokens)
   const [sortBy, setSortBy] = useState('marketCap')
   const [sortOrder, setSortOrder] = useState('desc')
@@ -234,45 +231,7 @@ export default function MonexaTrusted() {
         </main>
 
       </div>
-
-      {/* Monexa decorative elements */}
-      <div className="fixed top-0 left-0 w-1 h-screen bg-gradient-to-b from-[#40E0D0] to-[#8A2BE2]"></div>
-      <div className="fixed top-0 right-0 w-1 h-screen bg-gradient-to-b from-[#8A2BE2] to-[#40E0D0]"></div>
-      <div className="fixed bottom-0 left-0 w-screen h-1 bg-gradient-to-r from-[#40E0D0] via-[#8A2BE2] to-[#40E0D0]"></div>
-
-      {/* Mobile menu button */}
-      <motion.button
-        className="fixed top-4 right-4 z-50 lg:hidden bg-gray-800 p-2 rounded-full"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {isMenuOpen ? <XIcon className="w-6 h-6 text-[#40E0D0]" /> : <MenuIcon className="w-6 h-6 text-[#40E0D0]" />}
-      </motion.button>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed inset-y-0 right-0 w-64 bg-gray-800 shadow-lg z-40 lg:hidden"
-          >
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-[#40E0D0] mb-4">Menu</h2>
-              <ul className="space-y-2">
-                <li><a href="#" className="block py-2 text-gray-300 hover:text-[#40E0D0] transition-colors">Home</a></li>
-                <li><a href="#" className="block py-2 text-gray-300 hover:text-[#40E0D0] transition-colors">Trusted Tokens</a></li>
-                <li><a href="#" className="block py-2 text-gray-300 hover:text-[#40E0D0] transition-colors">Market Analysis</a></li>
-                <li><a href="#" className="block py-2 text-gray-300 hover:text-[#40E0D0] transition-colors">Contact</a></li>
-              </ul>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
+      
       {/* Token Modal */}
       <AnimatePresence>
         {selectedToken && (
