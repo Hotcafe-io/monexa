@@ -52,7 +52,7 @@ const Header = ({ currentDate, title, subtitle, marketInfoCards }) => {
 
           {/* Header content */}
           <div className="relative z-10">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-2">
+            <div className="flex flex-col md:flex-row md:justify-between  mb-2">
               <div className="flex items-center">
                 <MonexaLogo />
                 <motion.h1
