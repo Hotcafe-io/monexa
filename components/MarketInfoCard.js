@@ -11,8 +11,8 @@ const MarketInfoCard = ({ icon, title, value, change }) => (
     }}
     whileTap={{ scale: 0.95 }}
   >
-    <div className="flex md:items-center md:flex-row flex-col md:justify-between">
-      <div className="flex items-center">
+    <div className="flex flex-1 h-full md:items-center md:flex-row flex-col md:justify-between">
+      <div className="flex flex-1 h-full md:items-center">
         {icon}
         <div className="ml-2">
           <p className="text-xs text-[#40E0D0]">{title}</p>
@@ -20,7 +20,7 @@ const MarketInfoCard = ({ icon, title, value, change }) => (
         </div>
       </div>
       <div
-        className={`md:ml-0 ml-auto text-xs ${
+        className={`md:ml-0 ml-auto mt-auto text-xs ${
           change.startsWith('+') ? 'text-[#40E0D0]' : 'text-[#FF6B6B]'
         }`}
       >

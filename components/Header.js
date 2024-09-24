@@ -1,20 +1,20 @@
 // components/Header.js
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MonexaLogo from './MonexaLogo'
 import MarketInfoCard from './MarketInfoCard'
 
 const Header = ({ currentDate, title, subtitle, marketInfoCards }) => {
-  const [isGlitching, setIsGlitching] = useState(false)
+  // const [isGlitching, setIsGlitching] = useState(false)
 
-  useEffect(() => {
-    const glitchInterval = setInterval(() => {
-      setIsGlitching(true)
-      setTimeout(() => setIsGlitching(false), 200)
-    }, 5000)
+  // useEffect(() => {
+  //   const glitchInterval = setInterval(() => {
+  //     setIsGlitching(true)
+  //     setTimeout(() => setIsGlitching(false), 200)
+  //   }, 5000)
 
-    return () => clearInterval(glitchInterval)
-  }, [])
+  //   return () => clearInterval(glitchInterval)
+  // }, [])
 
   return (
     <motion.header
@@ -37,7 +37,7 @@ const Header = ({ currentDate, title, subtitle, marketInfoCards }) => {
           </div>
 
           {/* Glitch effect */}
-          <AnimatePresence>
+          {/* <AnimatePresence>
             {isGlitching && (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -48,7 +48,7 @@ const Header = ({ currentDate, title, subtitle, marketInfoCards }) => {
                 style={{ clipPath: 'polygon(0 10%, 100% 0, 100% 90%, 0 100%)' }}
               />
             )}
-          </AnimatePresence>
+          </AnimatePresence> */}
 
           {/* Header content */}
           <div className="relative z-10">
