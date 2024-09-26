@@ -4,7 +4,15 @@ import { motion } from 'framer-motion'
 import * as Icons from 'lucide-react'
 import { formatMarketCap } from '../utils/formatMarketCap'
 
-const TokenItem = ({ token }) => {
+/** @typedef {import('../types/index').Token} Token */
+
+/**
+ * @param {Object} props
+ * @param {Token} props.token
+ */
+export default function TokenItem({
+  token
+}) {
   const IconComponent = Icons[token.icon] || Icons.DollarSignIcon
 
   return (
@@ -39,5 +47,3 @@ const TokenItem = ({ token }) => {
     </motion.div>
   )
 }
-
-export default TokenItem

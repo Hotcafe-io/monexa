@@ -2,6 +2,13 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
+/**
+ * @param {Object} props
+ * @param {React.ReactNode} props.icon
+ * @param {string} props.title
+ * @param {string} props.value
+ * @param {string} props.change
+ */
 const MarketInfoCard = ({ icon, title, value, change }) => (
   <motion.div
     className="bg-white bg-opacity-10 rounded-lg p-2 backdrop-filter backdrop-blur-sm"
