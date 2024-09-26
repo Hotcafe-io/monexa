@@ -10,7 +10,7 @@ import { formatMarketCap } from '../utils/formatMarketCap'
  * @param {Object} props
  * @param {Token} props.token
  */
-export function TokenItem({
+export default function TokenItem({
   token
 }) {
   const IconComponent = Icons[token.icon] || Icons.DollarSignIcon
