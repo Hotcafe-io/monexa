@@ -14,6 +14,14 @@ import {
   ShoppingCartIcon,
 } from 'lucide-react'
 
+/** @typedef {import('../types/index').Token} Token */
+
+/**
+ * @param {Object} props
+ * @param {Token} props.token
+ * @param {(id: number) => void} props.onUpvote
+ * @param {(token: Token) => void} props.onClick
+ */
 const TokenCard = ({ token, onUpvote, onClick }) => (
   <motion.li
     layout
@@ -21,15 +29,14 @@ const TokenCard = ({ token, onUpvote, onClick }) => (
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.8 }}
     whileHover={{ scale: 1.02 }}
-    className={`relative overflow-hidden rounded-lg shadow-lg list-none ${
-      token.blocked
+    className={`relative overflow-hidden rounded-lg shadow-lg list-none ${token.blocked
         ? 'bg-gray-800'
         : token.status === 'green'
-        ? 'bg-[#40E0D0] bg-opacity-20'
-        : token.status === 'yellow'
-        ? 'bg-[#FFD700] bg-opacity-20'
-        : 'bg-[#FF6B6B] bg-opacity-20'
-    } cursor-pointer`}
+          ? 'bg-[#40E0D0] bg-opacity-20'
+          : token.status === 'yellow'
+            ? 'bg-[#FFD700] bg-opacity-20'
+            : 'bg-[#FF6B6B] bg-opacity-20'
+      } cursor-pointer`}
     onClick={() => onClick(token)}
   >
     <div
@@ -67,9 +74,8 @@ const TokenCard = ({ token, onUpvote, onClick }) => (
               </div>
             </div>
             <motion.span
-              className={`text-sm font-semibold ${
-                token.variation > 0 ? 'text-[#40E0D0]' : 'text-[#FF6B6B]'
-              }`}
+              className={`text-sm font-semibold ${token.variation > 0 ? 'text-[#40E0D0]' : 'text-[#FF6B6B]'
+                }`}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -108,21 +114,20 @@ const TokenCard = ({ token, onUpvote, onClick }) => (
               <span className="text-white">{token.chain}</span>
             </div>
             <motion.span
-              className={`px-2 py-1 rounded text-xs ${
-                token.status === 'green'
+              className={`px-2 py-1 rounded text-xs ${token.status === 'green'
                   ? 'bg-[#40E0D0] text-white'
                   : token.status === 'yellow'
-                  ? 'bg-[#FFD700] text-gray-800'
-                  : 'bg-[#FF6B6B] text-white'
-              }`}
+                    ? 'bg-[#FFD700] text-gray-800'
+                    : 'bg-[#FF6B6B] text-white'
+                }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               {token.status === 'green'
                 ? 'Recommended'
                 : token.status === 'yellow'
-                ? 'Neutral'
-                : 'Not Recommended'}
+                  ? 'Neutral'
+                  : 'Not Recommended'}
             </motion.span>
           </div>
         </>

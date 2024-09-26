@@ -2,6 +2,12 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
+/** @typedef {import('../types/index').Token} Token */
+
+/**
+ * @param {Object} props
+ * @param {Token[]} props.tokens
+ */
 const MigratedTokensMarquee = ({ tokens }) => (
   <div className="mb-4 bg-white bg-opacity-10 p-1 rounded-lg overflow-hidden">
     <motion.div
