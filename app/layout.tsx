@@ -33,10 +33,6 @@ export default function RootLayout({
         <Navbar />
         <div className="container xl:!max-w-[1900px] mx-auto px-4 py-6 flex flex-col flex-1">
           {children}
-          {/* Decorative elements */}
-          <div className="fixed top-0 left-0 w-1 h-screen bg-gradient-to-b from-[#40E0D0] to-[#8A2BE2] z-50"></div>
-          <div className="fixed top-0 right-0 w-1 h-screen bg-gradient-to-b from-[#8A2BE2] to-[#40E0D0] z-50"></div>
-          <div className="fixed bottom-0 left-0 w-screen h-1 bg-gradient-to-r from-[#40E0D0] via-[#8A2BE2] to-[#40E0D0] z-50"></div>
         </div>
         <Footer />
       </body>
