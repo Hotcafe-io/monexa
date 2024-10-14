@@ -40,7 +40,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const connect = useCallback((event: SocketEvents) => {
         if (connections[event].isConnected) return;
 
-        const socket = io(`http://seu-servidor.com/${event}`);
+        const socket = io(`http://localhost:/${event}`);
 
         socket.on('connect', () => {
             setConnections(prev => ({
