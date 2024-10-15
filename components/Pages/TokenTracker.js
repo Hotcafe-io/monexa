@@ -20,6 +20,7 @@ import TokenModal from '../TokenModal'
 // Import the data arrays from the data folder
 import initialTokens from '../../data/tokens'
 import migratedTokens from '../../data/migratedTokens'
+import { SocketEvents, useSocket } from '@/context/websocket'
 
 export default function TokenTracker() {
   const [currentDate, setCurrentDate] = useState('')
@@ -28,6 +29,7 @@ export default function TokenTracker() {
   const [sortBy, setSortBy] = useState('variation')
   const [sortOrder, setSortOrder] = useState('desc')
   const [selectedToken, setSelectedToken] = useState(null)
+  const { connect, connections, disconnect, messages, send } = useSocket()
 
   useEffect(() => {
     const date = new Date().toLocaleDateString('en-US', {
@@ -36,6 +38,12 @@ export default function TokenTracker() {
       day: 'numeric',
     })
     setCurrentDate(date)
+
+    connect(SocketEvents.NewPairs)
+
+    // setInterval(() => {
+    //   console.log(messages)
+    // }, 2000)
   }, [])
 
   const handleUpvote = (id) => {

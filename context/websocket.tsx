@@ -1,9 +1,8 @@
 'use client'
 
+import { decryptData } from '@/utils/encription';
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import io, { Socket } from 'socket.io-client';
 
-// Define the SocketEvents enum
 export enum SocketEvents {
     NewPairs = 'new-pairs',
     TrustedPairs = 'trusted-pairs',
@@ -15,15 +14,15 @@ export enum SocketEvents {
 }
 
 type SocketConnection = {
-    socket: Socket | null;
+    socket: WebSocket | null;
     isConnected: boolean;
 };
 
 type SocketContextType = {
     connections: Record<SocketEvents, SocketConnection>;
+    messages: Record<SocketEvents, any[]>;
     connect: (event: SocketEvents) => void;
     disconnect: (event: SocketEvents) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     send: (event: SocketEvents, data: any) => void;
 };
 
@@ -37,30 +36,52 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }), {} as Record<SocketEvents, SocketConnection>)
     );
 
+    const [messages, setMessages] = useState<Record<SocketEvents, any[]>>(() =>
+        Object.values(SocketEvents).reduce((acc, event) => ({
+            ...acc,
+            [event]: []
+        }), {} as Record<SocketEvents, any[]>)
+    );
+
     const connect = useCallback((event: SocketEvents) => {
         if (connections[event].isConnected) return;
 
-        const socket = io(`http://localhost:/${event}`);
+        const socket = new WebSocket(`ws://localhost:6832/${event}`);
 
-        socket.on('connect', () => {
+        socket.onopen = () => {
             setConnections(prev => ({
                 ...prev,
                 [event]: { socket, isConnected: true }
             }));
-        });
+        };
 
-        socket.on('disconnect', () => {
+        socket.onclose = () => {
             setConnections(prev => ({
                 ...prev,
                 [event]: { ...prev[event], isConnected: false }
             }));
-        });
+        };
+
+        socket.onmessage = (messageEvent) => {
+            console.log(messageEvent.data)
+            console.log(decryptData(messageEvent.data))
+            const data = JSON.parse(decryptData(messageEvent.data));
+            setMessages(prev => ({
+                ...prev,
+                [event]: [...prev[event], data]
+            }));
+        };
+
+        setConnections(prev => ({
+            ...prev,
+            [event]: { socket, isConnected: false }
+        }));
     }, [connections]);
 
     const disconnect = useCallback((event: SocketEvents) => {
         const connection = connections[event];
         if (connection.socket) {
-            connection.socket.disconnect();
+            connection.socket.close();
             setConnections(prev => ({
                 ...prev,
                 [event]: { socket: null, isConnected: false }
@@ -68,10 +89,10 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }
     }, [connections]);
 
-    const send = useCallback((event: SocketEvents, data: unknown) => {
+    const send = useCallback((event: SocketEvents, data: any) => {
         const connection = connections[event];
         if (connection.socket && connection.isConnected) {
-            connection.socket.emit(event, data);
+            connection.socket.send(JSON.stringify(data));
         } else {
             console.error(`Socket for ${event} is not connected`);
         }
@@ -82,14 +103,14 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             Object.values(SocketEvents).forEach(event => {
                 const connection = connections[event];
                 if (connection.socket) {
-                    connection.socket.disconnect();
+                    connection.socket.close();
                 }
             });
         };
     }, []);
 
     return (
-        <SocketContext.Provider value={{ connections, connect, disconnect, send }}>
+        <SocketContext.Provider value={{ connections, messages, connect, disconnect, send }}>
             {children}
         </SocketContext.Provider>
     );
