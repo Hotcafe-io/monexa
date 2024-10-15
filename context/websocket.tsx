@@ -63,9 +63,14 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         };
 
         socket.onmessage = (messageEvent) => {
-            console.log(messageEvent.data)
-            console.log(decryptData(messageEvent.data))
-            const data = JSON.parse(decryptData(messageEvent.data));
+            const decripted = decryptData(messageEvent.data);
+
+            if(typeof decripted === 'string') {
+                console.log(decripted);
+                return;
+            }
+
+            const data = JSON.parse(decripted);
             setMessages(prev => ({
                 ...prev,
                 [event]: [...prev[event], data]

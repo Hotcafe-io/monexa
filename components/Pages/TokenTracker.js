@@ -40,6 +40,8 @@ export default function TokenTracker() {
     setCurrentDate(date)
 
     connect(SocketEvents.NewPairs)
+    connect(SocketEvents.NewContracts)
+    connect(SocketEvents.VerifiedPairs)
 
     // setInterval(() => {
     //   console.log(messages)

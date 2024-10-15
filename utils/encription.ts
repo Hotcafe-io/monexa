@@ -1,7 +1,12 @@
 import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
 
 const algorithm = 'aes-256-cbc';
-const key = Buffer.from(process.env.SECRET_KEY || '', 'hex');
+
+const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || '';
+if (secretKey.length !== 64) {
+    throw new Error('SECRET_KEY environment variable must be 64 hexadecimal characters long.');
+}
+const key = Buffer.from(secretKey, 'hex');
 
 export function decryptData(encryptedData: string): string {
     const [ivHex, encryptedText] = encryptedData.split(':');
