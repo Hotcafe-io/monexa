@@ -128,6 +128,9 @@ const TokenCard = ({ token, onUpvote, onClick }) => (
                 : token.status === 'yellow'
                   ? 'Neutral'
                   : 'Not Recommended'}
+                  {
+                    ` (${Math.floor(token.score)})`
+                  }
             </motion.span>
           </div>
         </>

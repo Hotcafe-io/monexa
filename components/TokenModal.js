@@ -2,6 +2,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { XIcon, TwitterIcon, GithubIcon, GlobeIcon, ShoppingCartIcon } from 'lucide-react'
+import DexScreenerButtons from '@/app/components/dexscreener'
 
 /** @typedef {import('../types/index').Token} Token */
 
@@ -22,10 +23,10 @@ const TokenModal = ({ token, onClose }) => (
 			initial={{ scale: 0.8, y: 50 }}
 			animate={{ scale: 1, y: 0 }}
 			exit={{ scale: 0.8, y: 50 }}
-			className="bg-gray-900 p-4 rounded-lg shadow-xl max-w-md w-full mx-4 overflow-y-auto max-h-[90vh]"
+			className="bg-gray-900 p-4 rounded-lg shadow-xl max-w-md w-full mx-4 overflow-y-auto max-h-[90vh] flex flex-col gap-4 "
 			onClick={(e) => e.stopPropagation()}
 		>
-			<div className="flex justify-between items-center mb-4">
+			<div className="flex justify-around items-center">
 				<div className="flex items-center">
 					<span className="text-3xl mr-2">{token.icon}</span>
 					<h2 className="text-2xl font-bold text-[#40E0D0]">
@@ -38,7 +39,14 @@ const TokenModal = ({ token, onClose }) => (
 				</button>
 			</div>
 
-			<div className="grid grid-cols-2 gap-4 mb-4">
+			<div className='flex justify-center'>
+				<DexScreenerButtons
+					address={token.address}
+					chain={token.chain}
+				/>
+			</div>
+
+			<div className="grid grid-cols-2 gap-4 ">
 				<div className="bg-white bg-opacity-10 p-2 rounded">
 					<h4 className="text-sm font-semibold text-[#40E0D0] mb-1">
 						Liquidity
@@ -71,7 +79,7 @@ const TokenModal = ({ token, onClose }) => (
 				</div>
 			</div>
 
-			<div className="mb-4">
+			<div className="">
 				<h3 className="text-lg font-semibold text-[#40E0D0] mb-2">
 					Recent Transactions
 				</h3>
@@ -89,14 +97,14 @@ const TokenModal = ({ token, onClose }) => (
 								{tx.type}
 							</span>
 							<span className="text-white">
-								{tx.amount} @ ${tx.price}
+								{tx.amount}
 							</span>
 						</li>
 					))}
 				</ul>
 			</div>
 
-			<div className="mb-4">
+			<div className="">
 				<h3 className="text-lg font-semibold text-[#8A2BE2] mb-2">
 					Top Holders
 				</h3>
@@ -113,7 +121,7 @@ const TokenModal = ({ token, onClose }) => (
 				</ul>
 			</div>
 
-			<div className="grid grid-cols-3 gap-2 mb-4">
+			<div className="grid grid-cols-3 gap-2 ">
 				<div className="bg-white bg-opacity-10 p-2 rounded">
 					<h4 className="text-xs font-semibold text-[#40E0D0] mb-1">
 						Dev Holdings
@@ -136,7 +144,7 @@ const TokenModal = ({ token, onClose }) => (
 				</div>
 			</div>
 
-			<div className="flex justify-between items-center mb-4">
+			<div className="flex justify-between items-center ">
 				<div className="flex space-x-2">
 					<a
 						href={token.socials.twitter}

@@ -1,4 +1,5 @@
 import { millify } from 'millify';
+import BigNumber from 'bignumber.js';
 
 export interface Token {
     id: number;
@@ -32,6 +33,7 @@ export interface Token {
         github: string;
         website: string;
     };
+    score: number;
 }
 
 interface RawTokenData {
@@ -58,6 +60,9 @@ interface RawTokenData {
     price: string;
     marketcap: string;
     initialPrice: string;
+    buys: number;
+    sells: number;
+    initialSupply: string;
     // Add other properties as needed
 }
 
@@ -70,26 +75,24 @@ export default function TokenParser(data: RawTokenData): Token {
         return decimalValue;
     }
 
+    const tokensOutPool = new BigNumber(100).minus(new BigNumber(data.initialSupply).times(100).dividedBy(data.supply).toFixed(2)).toFixed(2)
 
+    const liquidity = (Number(data.liquidity) - Number(data.initialLiquidity)) * ethPrice;
+
+    const ponderHolders = data.holders.length > 100 ? data.holders.length / 2 : 0;
+
+    const oldRPScore = (liquidity / data.holders.length) - ponderHolders;
 
     const getStatus = () => {
-        const liquidity = (Number(data.liquidity) - Number(data.initialLiquidity)) * ethPrice;
-
-        const oldRPScore = liquidity / data.holders.length
-
-        if (liquidity < ethPrice / 2 || Number(data.initialLiquidity) < 1) {
+        if (liquidity < ethPrice / 2 || Number(data.initialLiquidity) < 1 || Number(tokensOutPool) > 20) {
             return 'red';
         }
-
         if (oldRPScore < 100) {
             return 'green';
         }
-
         if (oldRPScore < 200) {
             return 'yellow';
         }
-
-
         return 'red';
     };
 
@@ -101,11 +104,14 @@ export default function TokenParser(data: RawTokenData): Token {
 
     const variation = ((Number(data.price) - Number(data.initialPrice)) / Number(data.initialPrice)) * 100
 
+    const honeypotBaseCheck = data.sells / data.buys < 0.2;
+
     return {
         id: 0, // Assign an appropriate ID or generate one
         ...data,
         liquidity: millify(Number(data.liquidity) * ethPrice),
         icon: data?.iconUrl || '',
+        score: oldRPScore > 0 ? oldRPScore : 1,
         variation: Number(variation.toFixed(2)), // Variation data is not provided in the raw data
         status: getStatus(),
         volume: "$" + millify(data.volume * ethPrice),
@@ -114,7 +120,7 @@ export default function TokenParser(data: RawTokenData): Token {
         currentPrice: displayFullValue(Number(data.price)), // Current price is not provided in the raw data
         chain: data.chain,
         upvotes: 0, // Upvotes are not provided in the raw data
-        blocked: false, // Blocked status is not provided in the raw data
+        blocked: honeypotBaseCheck || Number(tokensOutPool) > 50, // Blocked status is not provided in the raw data
         transactions: data.transactions.map(tx => ({
             type: tx.type,
             amount: "$" + millify(tx.ethAmount * ethPrice),

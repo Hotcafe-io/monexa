@@ -20,7 +20,7 @@ import TokenModal from '../TokenModal'
 // Import the data arrays from the data folder
 import initialTokens from '../../data/tokens'
 import migratedTokens from '../../data/migratedTokens'
-import { SocketEvents, useSocket } from '@/context/websocket'
+import { SocketEvents, useSocket } from '@/app/context/websocket'
 import TokenParser from '@/utils/tokenParser'
 
 export default function TokenTracker() {
