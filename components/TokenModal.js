@@ -41,9 +41,9 @@ const TokenModal = ({ token, onClose }) => (
 			<div className="grid grid-cols-2 gap-4 mb-4">
 				<div className="bg-white bg-opacity-10 p-2 rounded">
 					<h4 className="text-sm font-semibold text-[#40E0D0] mb-1">
-						Current Price
+						Liquidity
 					</h4>
-					<p className="text-lg font-bold text-white">${token.currentPrice}</p>
+					<p className="text-lg font-bold text-white">${token.liquidity}</p>
 				</div>
 				<div className="bg-white bg-opacity-10 p-2 rounded">
 					<h4 className="text-sm font-semibold text-[#8A2BE2] mb-1">
@@ -83,7 +83,7 @@ const TokenModal = ({ token, onClose }) => (
 						>
 							<span
 								className={
-									tx.type === 'Buy' ? 'text-[#40E0D0]' : 'text-[#FF6B6B]'
+									tx.type === 'buy' ? 'text-[#40E0D0]' : 'text-[#FF6B6B]'
 								}
 							>
 								{tx.type}

@@ -21,15 +21,16 @@ import TokenModal from '../TokenModal'
 import initialTokens from '../../data/tokens'
 import migratedTokens from '../../data/migratedTokens'
 import { SocketEvents, useSocket } from '@/context/websocket'
+import TokenParser from '@/utils/tokenParser'
 
 export default function TokenTracker() {
   const [currentDate, setCurrentDate] = useState('')
-  const [tokens, setTokens] = useState(initialTokens)
+  const [tokens, setTokens] = useState([])
   const [filter, setFilter] = useState('all')
   const [sortBy, setSortBy] = useState('variation')
   const [sortOrder, setSortOrder] = useState('desc')
   const [selectedToken, setSelectedToken] = useState(null)
-  const { connect, connections, disconnect, messages, send } = useSocket()
+  const { connect, connections, disconnect, send, on } = useSocket()
 
   useEffect(() => {
     const date = new Date().toLocaleDateString('en-US', {
@@ -39,13 +40,21 @@ export default function TokenTracker() {
     })
     setCurrentDate(date)
 
-    connect(SocketEvents.NewPairs)
-    connect(SocketEvents.NewContracts)
-    connect(SocketEvents.VerifiedPairs)
+    function parseItems(items) {
+      const parsed = items.map(TokenParser)
 
-    // setInterval(() => {
-    //   console.log(messages)
-    // }, 2000)
+      setTokens(parsed)
+    }
+
+    connect(SocketEvents.UpdatePairs, parseItems)
+    connect(SocketEvents.NewPairs, console.log)
+    connect(SocketEvents.NewContracts, console.log)
+
+    return () => {
+      disconnect(SocketEvents.UpdatePairs)
+      disconnect(SocketEvents.NewPairs)
+      disconnect(SocketEvents.NewContracts)
+    }
   }, [])
 
   const handleUpvote = (id) => {
@@ -109,13 +118,13 @@ export default function TokenTracker() {
           {
             icon: <BarChart3Icon className="w-4 h-4 text-[#40E0D0]" />,
             title: 'Market Cap',
-            value: '$1.23T',
-            change: '+5.4%',
+            value: '$315B',
+            change: '+1.4%',
           },
           {
             icon: <TrendingUpIcon className="w-4 h-4 text-[#40E0D0]" />,
             title: '24h Volume',
-            value: '$78.9B',
+            value: '$1.38B',
             change: '+12.7%',
           },
           {

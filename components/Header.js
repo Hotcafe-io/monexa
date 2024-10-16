@@ -13,7 +13,7 @@ const Header = ({ currentDate, title, subtitle, marketInfoCards }) => {
       transition={{ duration: 0.5 }}
       className="mb-4"
     >
-      <div className="bg-gradient-to-r from-[#40E0D0] via-[#8A2BE2] to-[#40E0D0] rounded-lg shadow-2xl overflow-hidden">
+      <div className="bg-gradient-to-r from-[#40E0D0] via-[#8A2BE2] to-[#40E0D0] rounded-3xl shadow-2xl overflow-hidden">
         <div className="relative p-4">
           {/* Animated background */}
           <div className="absolute inset-0 opacity-20">

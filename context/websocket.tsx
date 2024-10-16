@@ -11,6 +11,7 @@ export enum SocketEvents {
     RennouncedPairs = 'rennounced-pairs',
     RuggedPairs = 'rugged-pairs',
     NewContracts = 'new-contracts',
+    UpdatePairs = 'update-pairs'
 }
 
 type SocketConnection = {
@@ -21,7 +22,8 @@ type SocketConnection = {
 type SocketContextType = {
     connections: Record<SocketEvents, SocketConnection>;
     messages: Record<SocketEvents, any[]>;
-    connect: (event: SocketEvents) => void;
+    recentPairs: any[];
+    connect: (event: SocketEvents, callback: any) => void;
     disconnect: (event: SocketEvents) => void;
     send: (event: SocketEvents, data: any) => void;
 };
@@ -42,8 +44,9 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             [event]: []
         }), {} as Record<SocketEvents, any[]>)
     );
+    const [recentPairs, setRecentPairs] = useState<any[]>([]);
 
-    const connect = useCallback((event: SocketEvents) => {
+    const connect = useCallback((event: SocketEvents, callback: any) => {
         if (connections[event].isConnected) return;
 
         const socket = new WebSocket(`ws://localhost:6832/${event}`);
@@ -63,18 +66,23 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         };
 
         socket.onmessage = (messageEvent) => {
-            const decripted = decryptData(messageEvent.data);
+            const decrypted = decryptData(messageEvent.data);
 
-            if(typeof decripted === 'string') {
-                console.log(decripted);
-                return;
+            try {
+                const data = JSON.parse(decrypted);
+
+                if (event === SocketEvents.UpdatePairs) {
+                    setRecentPairs(data);
+                }
+
+                console.log(data)
+
+                callback(data);
+            } catch (err) {
+                if (typeof decrypted === 'string') {
+                    console.error(`Error parsing data: ${decrypted}`);
+                }
             }
-
-            const data = JSON.parse(decripted);
-            setMessages(prev => ({
-                ...prev,
-                [event]: [...prev[event], data]
-            }));
         };
 
         setConnections(prev => ({
@@ -115,7 +123,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }, []);
 
     return (
-        <SocketContext.Provider value={{ connections, messages, connect, disconnect, send }}>
+        <SocketContext.Provider value={{ connections, messages, recentPairs, connect, disconnect, send }}>
             {children}
         </SocketContext.Provider>
     );

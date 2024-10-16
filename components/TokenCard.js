@@ -104,7 +104,7 @@ const TokenCard = ({ token, onUpvote, onClick }) => (
             <div className="flex items-center">
               <TrendingUpIcon className="w-3 h-3 mr-1 text-[#40E0D0]" />
               <span className="text-white">
-                Price: ${token.currentPrice}
+                Liquidity: ${token.liquidity}
               </span>
             </div>
           </div>
