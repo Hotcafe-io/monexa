@@ -121,11 +121,14 @@ export default function TokenParser(data: RawTokenData): Token {
         chain: data.chain,
         upvotes: 0, // Upvotes are not provided in the raw data
         blocked: honeypotBaseCheck || Number(tokensOutPool) > 50, // Blocked status is not provided in the raw data
-        transactions: data.transactions.map(tx => ({
-            type: tx.type,
-            amount: "$" + millify(tx.ethAmount * ethPrice),
-            price: '0', // Price per token is not provided in the raw data
-        })).reverse().slice(0, 10),
+        transactions: data.transactions
+            .map(tx => ({
+                type: tx.type,
+                amount: "$" + millify(tx.ethAmount * ethPrice),
+                price: '0', // Price per token is not provided in the raw data
+            }))
+            .reverse()
+            .slice(0, 10),
         topHolders: data.holders
             .filter(e => e.holder.toLowerCase() !== data.pair.toLowerCase())
             .sort((a, b) => {
@@ -140,7 +143,10 @@ export default function TokenParser(data: RawTokenData): Token {
             })),
         devHoldings: calculateDevHoldings() + "%",
         snipers: data.snipers.length,
-        snipersHoldingPercentage: data.holders.filter(e => data.snipers.includes(e.holder)).reduce((acc, x) => acc + Number(x.percentual), 0).toString() + "%", // Snipers holding percentage is not provided in the raw data
+        snipersHoldingPercentage: data.holders
+            .filter(e => data.snipers.includes(e.holder))
+            .reduce((acc, x) => acc + Number(x.percentual), 0)
+            .toString() + "%", // Snipers holding percentage is not provided in the raw data
         socials: {
             twitter: '',
             github: '',
