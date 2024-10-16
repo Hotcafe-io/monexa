@@ -81,7 +81,9 @@ export default function TokenParser(data: RawTokenData): Token {
 
     const ponderHolders = data.holders.length > 100 ? data.holders.length / 2 : 0;
 
-    const oldRPScore = (liquidity / data.holders.length) - ponderHolders;
+    const ethVolume = data.volume * ethPrice;
+
+    const oldRPScore = (liquidity / data.holders.length) - (ponderHolders * (ethVolume / 100000));
 
     const getStatus = () => {
         if (liquidity < ethPrice / 2 || Number(data.initialLiquidity) < 1 || Number(tokensOutPool) > 20) {
