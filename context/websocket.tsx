@@ -49,7 +49,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const connect = useCallback((event: SocketEvents, callback: any) => {
         if (connections[event].isConnected) return;
 
-        const socket = new WebSocket(`ws://${process.env.NEXT_PUBLIC_BASE_WEBSOCKET_URL}:${process.env.NEXT_PUBLIC_BASE_WEBSOCKET_PORT}/${event}`);
+        const socket = new WebSocket(`wss://${process.env.NEXT_PUBLIC_BASE_WEBSOCKET_URL}/${event}`);
 
         socket.onopen = () => {
             setConnections(prev => ({
