@@ -1,10 +1,12 @@
 // data/navigation.js
 
 export const mainNavigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Marketcap Tracker', href: '/marketcap-tracker' },
-  { name: 'Monexa Trusted', href: '/monexa-trusted' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'HOME', href: '/' },
+  { name: 'MARKETCAP TRACKER', href: '/marketcap-tracker' },
+  { name: 'MONEXA TRUSTED', href: '/monexa-trusted' },
+  { name: 'PRESALE', href: '/Presale' },
+  { name: 'CONTACT', href: '/contact' },
+  
 ]
 
 export const footerNavigation = [
