@@ -108,8 +108,8 @@ export default function TokenPresale() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gray-900 text-white p-8 relative">
+      <div className="max-w-4xl mx-auto relative">
         <header className="mb-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text">
             {tokenName} Token Presale
@@ -297,6 +297,29 @@ export default function TokenPresale() {
               <p className="text-sm text-gray-400">Verified by top auditors</p>
             </div>
           </div>
+        </div>
+        <footer className="flex justify-between items-center">
+          <div className="text-sm text-gray-400">
+            © 2024 {tokenName}. All rights reserved.
+          </div>
+          <div className="flex space-x-4">
+            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <Twitter className="h-6 w-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <MessageCircle className="h-6 w-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <Send className="h-6 w-6" />
+            </a>
+          </div>
+        </footer>
+      </div>
+      {/* Coming Soon Overlay */}
+      <div className="absolute inset-0 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-sm flex items-center justify-center z-50">
+        <div className="text-center">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">COMING SOON</h2>
+          <p className="text-xl md:text-2xl text-gray-300">Our token presale is launching soon. Stay tuned!</p>
         </div>
       </div>
       <style jsx>{`
